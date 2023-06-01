@@ -1,0 +1,1 @@
+openai_api_key = "Copy your token from your OpenAI"
