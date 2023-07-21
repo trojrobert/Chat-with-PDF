@@ -13,7 +13,7 @@ from langchain.chat_models import ChatOpenAI
 
 from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
-from langchain.schema import HumanMessage, AIMessage
+# from langchain.schema import HumanMessage, AIMessage
 
 os.environ["OPENAI_API_KEY"] = openai_api_key
 current_date = datetime.datetime.now().date()
