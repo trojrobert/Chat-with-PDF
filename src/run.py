@@ -40,7 +40,7 @@ uploaded_file = st.file_uploader("Choose your .pdf file", type="pdf")
 
 if uploaded_file is not None:
 
-    if not openai_api_key:
+    if not st.session_state.OPENAI_API_KEY:
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 
