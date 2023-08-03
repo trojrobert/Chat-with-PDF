@@ -15,24 +15,46 @@ from langchain.vectorstores import Chroma
 from langchain.embeddings import OpenAIEmbeddings
 # from langchain.schema import HumanMessage, AIMessage
 
-os.environ["OPENAI_API_KEY"] = openai_api_key
-current_date = datetime.datetime.now().date()
-if current_date < datetime.date(2023, 9, 2):
-    llm_name = "gpt-3.5-turbo-0301"
-else:
-    llm_name = "gpt-3.5-turbo"
-print(llm_name)
-llm = ChatOpenAI(model_name=llm_name, temperature=0)
+
+with st.sidebar:
+    st.text("Enter your OpenAI API Key")
+    st.session_state.OPENAI_API_KEY = st.text_input(label='*We do NOT store and cannot view your API key*',
+                                                    placeholder='sk-p999HAfj6Cm1bO00SXgJc7kFxvFPtQ1KBBWrqSOU',
+                                                    type="password",
+                                                    help='You can find your Secret API key at \
+                                                            https://platform.openai.com/account/api-keys')
+    
+    
+
 
 
 
 # App title 
 st.title("Chat with your PDF 💬➜📄")
 st.caption("Developed by Robert John")
+
+
+
 # Create file uploader to read pdf file 
 uploaded_file = st.file_uploader("Choose your .pdf file", type="pdf")
 
 if uploaded_file is not None:
+
+    if not openai_api_key:
+        st.info("Please add your OpenAI API key to continue.")
+        st.stop()
+
+    os.environ["OPENAI_API_KEY"] = st.session_state.OPENAI_API_KEY
+    #openai.api_key = openai_api_key
+
+    current_date = datetime.datetime.now().date()
+    if current_date < datetime.date(2023, 9, 2):
+        llm_name = "gpt-3.5-turbo-0301"
+    else:
+        llm_name = "gpt-3.5-turbo"
+    print(llm_name)
+    llm = ChatOpenAI(model_name=llm_name, temperature=0)
+    
 
 
     # Read the pdf file and parse it
